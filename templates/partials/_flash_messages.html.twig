@@ -1,0 +1,13 @@
+{# templates/partials/_flash_messages.html.twig #}
+{% for label, messages in app.flashes(['success', 'error', 'warning', 'info']) %}
+	{% for message in messages %}
+		<div class="p-4 mb-4 text-sm rounded-lg
+			            {% if label == 'success' %} bg-green-100 text-green-700
+			            {% elseif label == 'error' %} bg-red-100 text-red-700
+			            {% elseif label == 'warning' %} bg-yellow-100 text-yellow-700
+			            {% else %} bg-blue-100 text-blue-700
+			            {% endif %}" role="alert">
+			{{ message }}
+		</div>
+	{% endfor %}
+{% endfor %}

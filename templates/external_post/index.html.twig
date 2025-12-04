@@ -1,0 +1,54 @@
+{# templates/external_post/index.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Posts Externes
+{% endblock %}
+
+{% block body %}
+	<div class="container mx-auto px-4 py-8">
+		<div class="flex justify-between items-center mb-6">
+			<h1 class="text-3xl font-bold text-gray-800">Posts sur la Cuisine (API Externe)</h1>
+			{# Bouton pour créer un nouveau post #}
+			<a href="{{ path('app_external_posts_new') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300">
+				Créer un Post Externe
+			</a>
+		</div>
+
+
+		{# ... reste du template index.html.twig (affichage flash messages et liste des posts) ... #}
+		{# Affichage des messages Flash #}
+		{% for label, messages in app.flashes(['success', 'error']) %}
+			{% for message in messages %}
+				<div class="p-4 mb-4 text-sm rounded-lg {% if label == 'error' %} bg-red-100 text-red-700 {% else %} bg-green-100 text-green-700 {% endif %}" role="alert">
+					{{ message }}
+				</div>
+			{% endfor %}
+		{% endfor %}
+
+		{% if posts is not empty %}
+			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+				{% for post in posts|slice(0, 12) %}
+					{# Afficher les 12 premiers #}
+					<div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-300 flex flex-col justify-between">
+						<div>
+							<h2 class="text-xl font-semibold text-gray-900 mb-2 truncate" title="{{ post.title|default('Sans titre') }}">{{ post.title|default('Sans titre') }}</h2>
+							<p class="text-gray-600 text-sm">
+								{{ post.body|default('Pas de contenu')|slice(0, 150) }}
+								{% if post.body|default('')|length > 150 %}...
+								{% endif %}
+							</p>
+						</div>
+						<div
+							class="mt-4 text-right">
+							{# Lien vers la page de détails #}
+							<a href="{{ path('app_external_posts_show', {'id': post.id}) }}" class="text-indigo-600 hover:text-indigo-800 text-sm font-medium">Voir plus &rarr;</a>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+		{% else %}
+			<p class="text-gray-600">Aucun post n'a pu être récupéré depuis l'API externe ou l'API est indisponible.</p>
+		{% endif %}
+
+	</div>
+{% endblock %}

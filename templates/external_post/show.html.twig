@@ -1,0 +1,49 @@
+{# templates/external_post/show.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Détail Post Externe:
+	{{ post.title|default('Post') }}
+{% endblock %}
+
+{% block body %}
+	<div
+		class="container mx-auto px-4 py-8 max-w-3xl">
+		{# Affichage des messages Flash #}
+		{% for label, messages in app.flashes(['success', 'error']) %}
+			{% for message in messages %}
+				<div class="p-4 mb-4 text-sm rounded-lg {% if label == 'error' %} bg-red-100 text-red-700 {% else %} bg-green-100 text-green-700 {% endif %}" role="alert">
+					{{ message }}
+				</div>
+			{% endfor %}
+		{% endfor %}
+
+		<div class="bg-white p-8 rounded-lg shadow-lg">
+			<h1 class="text-3xl font-extrabold text-gray-900 mb-4">{{ post.title|default('Titre non disponible') }}</h1>
+
+			<div class="prose max-w-none text-gray-700">
+				<p>{{ post.body|default('Contenu non disponible')|nl2br }}</p>
+				{# nl2br pour les sauts de ligne si pertinent #}
+			</div>
+
+			<div class="mt-8 pt-6 border-t border-gray-200 flex items-center justify-between">
+				<a href="{{ path('app_external_posts_index') }}" class="text-indigo-600 hover:text-indigo-800">
+					&larr; Retour à la liste
+				</a>
+				<div class="flex space-x-3">
+					<a href="{{ path('app_external_posts_edit', {'id': post.id}) }}" class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300">
+						Modifier
+					</a>
+					{# Formulaire de suppression #}
+					<form method="post" action="{{ path('app_external_posts_delete', {'id': post.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce post externe ?');">
+						<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ post.id) }}">
+						<button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300">Supprimer</button>
+					</form>
+				</div>
+			</div>
+			<p class="text-xs text-gray-400 mt-4">ID:
+				{{ post.id }}
+				| UserID:
+				{{ post.userId|default('N/A') }}</p>
+		</div>
+	</div>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends '@EasyAdmin/page/content.html.twig' %}
+
+{% block content_title %}
+    {# Optionnel: Définir un titre pour la page du tableau de bord #}
+	Tableau de Bord Personnalisé 📊
+{% endblock %}
+
+
+{% block main %}
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-12">
+				<h1>Bienvenue sur l'Administration des Recettes ! 🎉</h1>
+				<p class="lead">
+					Ceci est votre tableau de bord personnalisé. Vous pouvez ajouter ici des statistiques,
+					                    des graphiques, des raccourcis importants, ou tout autre contenu pertinent.
+				</p>
+				<hr
+				class="my-4">
+
+				<div class="mb-4">
+					<h2>Accès Rapide</h2>
+					<a href="{{ ea_url().setController('App\\Controller\\Admin\\IngredientCrudController').setAction('index') }}" class="btn btn-primary me-2">
+						<i class="fas fa-carrot"></i>
+						Gérer les Ingrédients
+					</a>
+					<a href="{{ ea_url().setController('App\\Controller\\Admin\\RecetteCrudController').setAction('index') }}" class="btn btn-secondary">
+						<i class="fas fa-utensils"></i>
+						Gérer les Recettes
+					</a>
+					{# Ajoutez d'autres liens si nécessaire #}
+				</div>
+
+			</div>
+		</div>
+	</div>
+{% endblock %}

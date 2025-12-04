@@ -1,0 +1,38 @@
+{# templates/external_post/new.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer un Post Externe
+{% endblock %}
+
+{% block body %}
+	<div class="container mx-auto px-4 py-8 max-w-2xl">
+		<h1 class="text-3xl font-bold text-gray-800 mb-6">Créer un Nouveau Post Externe</h1>
+
+		{# Affichage des messages Flash #}
+		{% include 'partials/_flash_messages.html.twig' %}
+		{# Optionnel: factoriser les flash messages #}
+
+		<div class="bg-white p-8 rounded-lg shadow-lg">
+			{{ form_start(form) }}
+			<div class="mb-4">
+				{{ form_label(form.title) }}
+				{{ form_widget(form.title) }}
+				<div class="text-red-500 text-xs italic mt-1">{{ form_errors(form.title) }}</div>
+			</div>
+			<div class="mb-6">
+				{{ form_label(form.body) }}
+				{{ form_widget(form.body) }}
+				<div class="text-red-500 text-xs italic mt-1">{{ form_errors(form.body) }}</div>
+			</div>
+			<div class="flex items-center justify-between">
+				<button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+					Créer le Post
+				</button>
+				<a href="{{ path('app_external_posts_index') }}" class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800">
+					Annuler
+				</a>
+			</div>
+			{{ form_end(form) }}
+		</div>
+	</div>
+{% endblock %}

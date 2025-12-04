@@ -1,0 +1,6 @@
+# Cette configuration n'est plus nécessaire avec Symfony 6.4+
+# Les routes EasyAdmin sont maintenant définies via l'attribut #[Route] 
+# directement dans le DashboardController
+# easyadmin:
+#     resource: .
+#     type: easyadmin.routes
